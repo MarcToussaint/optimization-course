@@ -23,7 +23,7 @@ sudo apt-get install \
 * Install python packages:
 ```
 pip3 install --user \
-	pybind11
+	pybind11 \
 	jupyter matplotlib
 ```
 * Clone and compile the code:
