@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.4)
 
 project(RaiOptimizationCourse)
 
+set(CMAKE_CXX_STANDARD 14 CACHE STRING "C++ version selection")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+#set(CMAKE_CXX_EXTENSIONS OFF)  # optional, keep compiler extensionsn off
+
 add_subdirectory(pybind11)
 
 add_compile_options(
@@ -11,19 +15,15 @@ add_compile_options(
 add_definitions(
   -DRAI_ROOT_PATH=\"${CMAKE_SOURCE_DIR}/rai\"
   -DRAI_X11 -DRAI_LAPACK -DRAI_EIGEN -DRAI_PTHREAD
-#  -DRAI_GL
-#  -DRAI_GLFW -DRAI_ANN -DRAI_QHULL -DRAI_ASSIMP -DNO_CYCLE_DETECTION -DRAI_PNG
-#  -DRAI_SWIFT -DRAI_GJK -DRAI_FCL -DRAI_CCD
+  -DRAI_GL
+  -DRAI_GLFW -DRAI_ANN -DRAI_QHULL -DRAI_ASSIMP -DNO_CYCLE_DETECTION -DRAI_PNG
+  -DRAI_SWIFT -DRAI_GJK -DRAI_FCL -DRAI_CCD
   -DRAI_PYBIND
   )
 
 include_directories(
   rai/rai
   /usr/include/eigen3
-  )
-
-link_directories(
-#  $ENV{HOME}/opt/physx3.4/lib
   )
 
 file(GLOB SRC_Core rai/rai/Core/*.cpp)
@@ -47,14 +47,14 @@ file(GLOB SRC_ry rai/rai/ry/*.cpp)
 add_library(rai SHARED
   ${SRC_Core}
   ${SRC_Optim}
-#  ${SRC_Geo}
-#  ${SRC_GeoPlus}
-#  ${SRC_Algo}
-#  ${SRC_Plot}
-#  ${SRC_Gui}
-#  ${SRC_Kin}
-#  ${SRC_KinSwift}
-#  ${SRC_KOMO}
+  ${SRC_Geo}
+  ${SRC_GeoPlus}
+  ${SRC_Algo}
+  ${SRC_Plot}
+  ${SRC_Gui}
+  ${SRC_Kin}
+  ${SRC_KinSwift}
+  ${SRC_KOMO}
 #  ${SRC_Logic}
   #${SRC_LGP}
   #${SRC_RosCom}
@@ -66,7 +66,7 @@ add_library(rai SHARED
 
 target_link_libraries(rai
   jsoncpp lapack blas pthread rt X11
-#  assimp fcl ann glfw GLEW glut GLU GL png qhull
+  assimp fcl ann glfw GLEW glut GLU GL png qhull
 #  ${OpenCV_LIBS}
 #  ${BULLET_LIBRARIES}
 #  PhysX3Extensions PhysX3_x64 PhysX3Cooking_x64 PhysX3Common_x64 PxFoundation_x64
