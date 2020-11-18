@@ -11,7 +11,7 @@ This assumes a standard Ubuntu 18.04 machine.
 * The following assumes $HOME/git as your git path, and $HOME/opt
 to install 3rd-party libs -- please stick to this (no system-wide installs)
 
-* Clone the repo, install Ubuntu packages, compile with cmake
+* Clone the repo, install Ubuntu packages, & compile with cmake:
 ```
 mkdir -p $HOME/git
 cd $HOME/git
@@ -21,6 +21,7 @@ cd optimization-course
 git submodule init
 git submodule update
 
+make -j1 printUbuntuAll    # for your information: what the next step will install
 make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
 
 mkdir build

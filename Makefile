@@ -2,7 +2,7 @@ BASE = rai
 
 target: build bin
 
-DEPEND = Core Optim ry
+DEPEND = Core Optim Algo Geo Plot Gui Kin KOMO ry
 
 build: $(DEPEND:%=inPath_makeLib/%)
 
