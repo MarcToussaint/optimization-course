@@ -1,6 +1,6 @@
 # Optimization Algorithms course
 
-This repo is based on RAI code, including its python bindings. See https://github.com/MarcToussaint/rai for a README of the RAI code.
+This repo is based on the RAI code, including its python bindings. See https://github.com/MarcToussaint/rai for a README of the RAI code.
 
 
 
