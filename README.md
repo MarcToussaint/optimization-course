@@ -10,23 +10,8 @@ This assumes a standard Ubuntu 18.04 machine.
 
 * The following assumes $HOME/git as your git path, and $HOME/opt
 to install 3rd-party libs -- please stick to this (no system-wide installs)
-* Install Ubuntu packages:
-```
-sudo apt-get install \
-	g++ make gnupg gdb cmake gnuplot libjsoncpp-dev libx11-dev \
-	liblapack-dev libf2c2-dev libeigen3-dev \
-	libx11-dev \
-	liblapack-dev libf2c2-dev \
-	libnlopt-dev gfortran coinor-libipopt-dev \
-	python3 python3-dev python3-numpy python3-pip python3-distutils
-```
-* Install python packages:
-```
-pip3 install --user \
-	pybind11 \
-	jupyter matplotlib
-```
-* Clone and compile the code:
+
+* Clone the repo, install Ubuntu packages, compile with cmake
 ```
 mkdir -p $HOME/git
 cd $HOME/git
@@ -36,17 +21,27 @@ cd optimization-course
 git submodule init
 git submodule update
 
+make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
+
 mkdir build
 cd build
 cmake ..
 make -j $(command nproc)
 ```
-* Test
+
+* Install python packages:
 ```
-jupyter-notebook tutorials/opt-1.ipynb
+pip3 install --user \
+	pybind11 \
+	jupyter matplotlib
 ```
 
-* For a Docker with Ubuntu 18.04, see [here](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/mini18) 
+* Test
+```
+jupyter-notebook tutorials/opt-2.ipynb
+```
+
+* For a Docker with Ubuntu 18.04, see [here](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/full18)
 
 * When pulling updates for the repo, don't forget to also update the submodules:
 ```
