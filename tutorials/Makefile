@@ -1,10 +1,10 @@
 
 ipynb_paths =  $(shell find . -type f -name '*.ipynb' -not -name '*checkpoint*' -printf "%f ")
 
-run_paths = 1-basics.ipynb 2-cameraView.ipynb
+run_paths = how_to_query_an_NLP.ipynb opt-1.ipynb
 
 run:
-	@for p in $(run_paths); do jupyter-nbconvert --execute $$p; done
+	@for p in $(run_paths); do jupyter-nbconvert --execute $$p --to python; done
 
 clean: $(ipynb_paths:%=clean/%)
 
@@ -13,4 +13,4 @@ clean/%.ipynb: %.ipynb
 #jupyter-nbconvert --clear-output --inplace $<
 
 run/%.ipynb: %.ipynb
-	+@-jupyter-nbconvert --execute $<
+	+@-jupyter-nbconvert --execute $< --to python

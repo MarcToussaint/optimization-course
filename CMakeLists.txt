@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory(pybind11)
 
 add_compile_options(
-  -O3 -g -Wall -fPIC -std=c++14 -Wno-terminate
+  -O3 -g -Wall -fPIC -std=c++14 -Wno-terminate -Wno-class-memaccess
   )
 
 add_definitions(
