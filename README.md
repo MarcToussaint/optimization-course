@@ -39,7 +39,7 @@ pip3 install --user \
 
 * Test
 ```
-jupyter-notebook tutorials/opt-2.ipynb
+jupyter-notebook tutorials/how_to_query_an_NLP.ipynb
 ```
 
 * For a Docker with Ubuntu 18.04, see [here](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/full18)
