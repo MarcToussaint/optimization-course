@@ -4,7 +4,7 @@ This repo is based on the RAI code, including its python bindings. See https://g
 
 
 
-## Quick Start
+## Install directly on Ubuntu
 
 This assumes a standard Ubuntu 18.04 machine.
 
@@ -32,17 +32,14 @@ make -j $(command nproc)
 
 * Install python packages:
 ```
-pip3 install --user \
-	pybind11 \
-	jupyter matplotlib
+pip3 install --user pybind11 jupyter matplotlib
 ```
 
 * Test
 ```
+cd $HOME/git/optimization-course
 jupyter-notebook tutorials/how_to_query_an_NLP.ipynb
 ```
-
-* For a Docker with Ubuntu 18.04, see [here](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/full18)
 
 * When pulling updates for the repo, don't forget to also update the submodules:
 ```
@@ -50,7 +47,56 @@ git pull
 git submodule update
 ```
 
+## Install Docker on Ubuntu
 
+* Install docker engine for Ubuntu as described [here](https://docs.docker.com/engine/install/ubuntu/), namely:
+```
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+
+* Add your user to the docker user group (otherwise use *sudo* in front of all docker commands below)
+```
+sudo usermod -aG docker ${USER}
+```
+Log out and in again!
+
+* Download [this docker](https://hub.docker.com/r/marctoussaint/rai-optim20) from docker hub:
+```
+https://hub.docker.com/r/marctoussaint/rai-optim20
+```
+
+* Run the docker, mounting your $HOME directory as ~/home
+```
+xhost +local:root
+docker run -it \
+       --volume="$HOME/:/root/home" \
+       --env="DISPLAY" \
+       --network host \
+       --device /dev/input \
+       rai-optim20 /bin/bash
+```
+
+* When running the docker you should get a *** Welcome *** message. You can now run the jupyter server within the docker:
+```
+jupyter-notebook optimization-course/tutorials --no-browser --allow-root &
+```
+This starts a jupyter server without browser. You can now open your normal Ubuntu browser and access the Jupyter server at
+http://localhost:8888/?token=... as displayed on the console.
+
+* Whenever you close the docker, the jupyter server and local changes in optimization-course/tutorials get lost. To prevent this, create notbooks in your ~/home directory, which mounts your actual Ubuntu $HOME. (Or mount other paths, as you like.)
+
+* Side note: [This is how the docker was created](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/optim20)
+
+
+<!---
 # Documentation
-
 * [Sphinx documentation (preliminary)](https://marctoussaint.github.io/optimization-course/)
+--->
