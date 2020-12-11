@@ -76,7 +76,7 @@ Log out and in again!
 
 * Download [this docker](https://hub.docker.com/r/marctoussaint/rai-optim20) from docker hub:
 ```
-https://hub.docker.com/r/marctoussaint/rai-optim20
+docker pull marctoussaint/rai-optim20
 ```
 
 * Run the docker, mounting your $HOME directory as ~/home
@@ -92,7 +92,7 @@ docker run -it \
 
 * When running the docker you should get a *** Welcome *** message. You can now run the jupyter server within the docker:
 ```
-jupyter-notebook optimization-course/tutorials --no-browser --allow-root &
+jupyter-notebook optimization-course/tutorials --ip 0.0.0.0 --no-browser --allow-root &
 ```
 This starts a jupyter server without browser. You can now open your normal Ubuntu browser and access the Jupyter server at
 http://localhost:8888/?token=... as displayed on the console.
@@ -118,11 +118,31 @@ sudo apt-get install git sudo build-essential cmake libjsoncpp-dev --fix-missing
 
 * When launching jupyter, use --no-browser and direct your browser to the link displayed
 
-* TODO: Installing X-server
+* Installing X - I wasn't successful
+
+<!---
+[this X-server](https://sourceforge.net/projects/vcxsrv)
+
+* call Xlaunch and choose 'disable access control' on the last option page
+
+* call `export DISPLAY=0:0` before  launching jupyter
+--->
+
 
 ## Use Docker on Windows
 
 * Install Docker Desktop for Windows
+
+* In a console, pull and run the docker:
+```
+docker pull marctoussaint/rai-optim20
+docker run -it -p 8888:888 rai-optim20 /bin/bash
+```
+
+* Within the docker run jupyter
+```
+jupyter-notebook optimization-course/tutorials --ip 0.0.0.0 --allow-root
+```
 
 
 
