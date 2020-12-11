@@ -4,12 +4,18 @@ This repo is based on the RAI code, including its python bindings. See https://g
 
 
 
-## Install directly on Ubuntu
+## Compile directly on Ubuntu
 
-This assumes a standard Ubuntu 18.04 machine.
+This assumes a standard Ubuntu 20.04 machine.
 
 * The following assumes $HOME/git as your git path, and $HOME/opt
 to install 3rd-party libs -- please stick to this (no system-wide installs)
+
+* Install basics
+```
+sudo apt-get update
+sudo apt-get install git sudo build-essential cmake
+```
 
 * Clone the repo, install Ubuntu packages, & compile with cmake:
 ```
@@ -47,7 +53,7 @@ git pull
 git submodule update
 ```
 
-## Install Docker on Ubuntu
+## Use Docker on Ubuntu
 
 * Install docker engine for Ubuntu as described [here](https://docs.docker.com/engine/install/ubuntu/), namely:
 ```
@@ -94,6 +100,32 @@ http://localhost:8888/?token=... as displayed on the console.
 * Whenever you close the docker, the jupyter server and local changes in optimization-course/tutorials get lost. To prevent this, create notbooks in your ~/home directory, which mounts your actual Ubuntu $HOME. (Or mount other paths, as you like.)
 
 * Side note: [This is how the docker was created](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/optim20)
+
+## Compile on Windows within Ubuntu WSL
+
+* From the Microsoft Store, install the 'Ubuntu 20.04 LTS' (which I think is a [WSL Ubuntu](https://ubuntu.com/wsl))
+
+* When you launch it, you get some error on 'component is not enabled'. Follow the https://aka.ms/wslinstall instructions (including reboot)
+
+* Launch the ubuntu
+
+* Install basics
+```
+sudo apt-get update
+sudo apt-get install git sudo build-essential cmake libjsoncpp-dev --fix-missing
+```
+* Follow the 'Compile directly on Ubuntu' instructions
+
+* When launching jupyter, use --no-browser and direct your browser to the link displayed
+
+* TODO: Installing X-server
+
+## Use Docker on Windows
+
+* Install Docker Desktop for Windows
+
+
+
 
 
 <!---
