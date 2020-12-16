@@ -136,7 +136,7 @@ sudo apt-get install git sudo build-essential cmake libjsoncpp-dev --fix-missing
 * In a console, pull and run the docker:
 ```
 docker pull marctoussaint/rai-optim20
-docker run -it -p 8888:888 rai-optim20 /bin/bash
+docker run -it -p 8888:8888 rai-optim20 /bin/bash
 ```
 
 * Within the docker run jupyter
