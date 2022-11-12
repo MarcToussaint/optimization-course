@@ -2,8 +2,6 @@
 
 This repo is based on the RAI code, including its python bindings. See https://github.com/MarcToussaint/rai for a README of the RAI code.
 
-
-
 ## Compile directly on Ubuntu
 
 This assumes a standard Ubuntu 20.04 machine.
@@ -27,8 +25,9 @@ cd optimization-course
 git submodule init
 git submodule update
 
-make -j1 printUbuntuAll    # for your information: what the next step will install
-make -j1 installUbuntuAll  # calls sudo apt-get install; you can always interrupt
+make -j1 -C rai printUbuntuAll    # for your information: what the next step will install
+make -j1 -C rai installUbuntuAll  # calls sudo apt-get install; you can always interrupt
+make -j1 -C rai unityAll
 
 mkdir build
 cd build
