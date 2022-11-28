@@ -58,18 +58,8 @@ add_library(rai SHARED
   ${SRC_Algo}
   ${SRC_Gui}
   ${SRC_Kin}
-#  ${SRC_KinSwift}
   ${SRC_KOMO}
   ${SRC_Logic}
-#  ${SRC_LGP}
-#  ${SRC_Perception}
-#  ${SRC_Control}
-#  ${SRC_Franka}
-#  ${SRC_OptiTrack}
-#  ${SRC_Robotiq}
-#  ${SRC_BotOp}
-#  ${SRC_RealSense}
-#  ${SRC_Audio}
   )
 
 target_link_libraries(rai
@@ -89,6 +79,7 @@ if(USE_BULLET)
   add_definitions(-DRAI_BULLET)
   include_directories(${BULLET_INCLUDE_DIRS})
   target_link_libraries(rai ${BULLET_LIBRARIES})
+  message(STATUS "[rai] using bullet libs:" ${BULLET_LIBRARIES})
 endif()
 
 if(USE_OPENCV)
@@ -111,19 +102,22 @@ endif()
 
 if(USE_PYBIND)
   set(PYTHON_EXECUTABLE "python3")
+  message(STATUS "[rai] using python executable " ${PYTHON_EXECUTABLE} )
   execute_process(
-    COMMAND bash "-c" "python3 -m pybind11 --cmakedir" 
+    COMMAND bash "-c" "${PYTHON_EXECUTABLE} -m pybind11 --cmakedir" 
     OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE pybind11_DIR
   )
+  message(STATUS "[rai] using pybind11_DIR " ${pybind11_DIR} )
+  
   find_package(pybind11)
   add_definitions(-DRAI_PYBIND)
 
-pybind11_add_module(libry SHARED
+  pybind11_add_module(libry SHARED
     ${SRC_ry}
   )
 
-target_link_libraries(libry PRIVATE
-  rai
+  target_link_libraries(libry PRIVATE
+    rai
   )
 endif()
 
