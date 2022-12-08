@@ -1,153 +1,32 @@
 # Optimization Algorithms course
 
-This repo is based on the RAI code, including its python bindings. See https://github.com/MarcToussaint/rai for a README of the RAI code.
+This repo is based on the RAI code, including its python bindings. See https://github.com/MarcToussaint/rai-python 
 
-## Compile directly on Ubuntu
+## Installation
 
-This assumes a standard Ubuntu 20.04 machine.
+Users should not need to compile code. Use the pip install below. If you want to compile the lib and python bindings yourself, look at the [rai-python README](https://github.com/MarcToussaint/rai-python)
 
-* The following assumes $HOME/git as your git path, and $HOME/opt
-to install 3rd-party libs -- please stick to this (no system-wide installs)
 
-* Install basics
+* Some Ubuntu dependencies: (the pip package dynamically links to those)
 ```
-sudo apt-get update
-sudo apt-get install git sudo build-essential cmake
+sudo apt install liblapack3 freeglut3 libglew-dev python3 python3-pip
 ```
-
-* Clone the repo, install Ubuntu packages, & compile with cmake:
+* pip-install robotic and dependencies (numpy, scipy)
 ```
-mkdir -p $HOME/git
-cd $HOME/git
+python3 -m pip install robotic numpy scipy
+```
+* Test:
+```
+python3 -c 'from robotic import ry; ry.test.RndScene()'
+```
+If the `rai-robotModels` path fails, try one of the following:
+```
+cd $HOME && mkdir -p .local && cd $HOME/.local && ln -s /usr/local/rai-robotModels
+#python3 -c 'from robotic import ry; ry.setRaiPath("/usr/local/rai-robotModels"); ry.test.RndScene()'
+```
+* Now you can test the example in this repo (clone parallel to the OA assignments repo)
+```
 git clone https://github.com/MarcToussaint/optimization-course.git
-cd optimization-course
-
-git submodule init
-git submodule update
-
-make -j1 -C rai printUbuntuAll    # for your information: what the next step will install
-make -j1 -C rai installUbuntuAll  # calls sudo apt-get install; you can always interrupt
-make -j1 -C rai unityAll
-
-mkdir build
-cd build
-cmake ..
-make -j $(command nproc)
+cd optimization-course/example
+python3 main.py
 ```
-
-* Install python packages:
-```
-pip3 install --user pybind11 jupyter matplotlib
-```
-
-* Test
-```
-cd $HOME/git/optimization-course
-jupyter-notebook tutorials/how_to_query_an_NLP.ipynb
-```
-
-* When pulling updates for the repo, don't forget to also update the submodules:
-```
-git pull
-git submodule update
-```
-
-## Use Docker on Ubuntu
-
-* Install docker engine for Ubuntu as described [here](https://docs.docker.com/engine/install/ubuntu/), namely:
-```
-sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-```
-
-* Add your user to the docker user group (otherwise use *sudo* in front of all docker commands below)
-```
-sudo usermod -aG docker ${USER}
-```
-Log out and in again!
-
-* Download [this docker](https://hub.docker.com/r/marctoussaint/rai-optim20) from docker hub:
-```
-docker pull marctoussaint/rai-optim20
-```
-
-* Run the docker, mounting your $HOME directory as ~/home
-```
-xhost +local:root
-docker run -it \
-       --volume="$HOME/:/root/home" \
-       --env="DISPLAY" \
-       --network host \
-       --device /dev/input \
-       rai-optim20 /bin/bash
-```
-
-* When running the docker you should get a *** Welcome *** message. You can now run the jupyter server within the docker:
-```
-jupyter-notebook optimization-course/tutorials --ip 0.0.0.0 --no-browser --allow-root &
-```
-This starts a jupyter server without browser. You can now open your normal Ubuntu browser and access the Jupyter server at
-http://localhost:8888/?token=... as displayed on the console.
-
-* Whenever you close the docker, the jupyter server and local changes in optimization-course/tutorials get lost. To prevent this, create notbooks in your ~/home directory, which mounts your actual Ubuntu $HOME. (Or mount other paths, as you like.)
-
-* Side note: [This is how the docker was created](https://github.com/MarcToussaint/rai-maintenance/tree/master/docker/optim20)
-
-## Compile on Windows within Ubuntu WSL
-
-* From the Microsoft Store, install the 'Ubuntu 20.04 LTS' (which I think is a [WSL Ubuntu](https://ubuntu.com/wsl))
-
-* When you launch it, you get some error on 'component is not enabled'. Follow the https://aka.ms/wslinstall instructions (including reboot)
-
-* Launch the ubuntu
-
-* Install basics
-```
-sudo apt-get update
-sudo apt-get install git sudo build-essential cmake libjsoncpp-dev --fix-missing
-```
-* Follow the 'Compile directly on Ubuntu' instructions
-
-* When launching jupyter, use --no-browser and direct your browser to the link displayed
-
-* Installing X - I wasn't successful
-
-<!---
-[this X-server](https://sourceforge.net/projects/vcxsrv)
-
-* call Xlaunch and choose 'disable access control' on the last option page
-
-* call `export DISPLAY=0:0` before  launching jupyter
---->
-
-
-## Use Docker on Windows
-
-* Install Docker Desktop for Windows
-
-* In a console, pull and run the docker:
-```
-docker pull marctoussaint/rai-optim20
-docker run -it -p 8888:8888 marctoussaint/rai-optim20 /bin/bash
-```
-
-* Within the docker run jupyter
-```
-jupyter-notebook optimization-course/tutorials --ip 0.0.0.0 --allow-root
-```
-
-
-
-
-
-<!---
-# Documentation
-* [Sphinx documentation (preliminary)](https://marctoussaint.github.io/optimization-course/)
---->

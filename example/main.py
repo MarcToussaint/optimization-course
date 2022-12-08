@@ -1,25 +1,34 @@
 import sys
-sys.path.append("../../optimization_algorithms/")
-sys.path.append('../build')
+sys.path.append('../../optimization_algorithms/')
+#sys.path.append('../build')
 
+#import libry as ry
+from robotic import ry
 from problems import *
-from solve import solve_grad
-from optalg.interface.nlp_traced import NLPTraced
-import libry as ry
+from solve import *
+#from optalg.interface.nlp_traced import NLPTraced
 
+#-- four benchmarks so far:
 #[nlp, komo] = create_problem1_sosOnly(20)
-[nlp, komo] = create_problem2_withConstraints(20)
-problem = NLPTraced(nlp)
+#[nlp, komo] = create_problem2_withConstraints(20)
+[nlp, komo] = create_problem3_handoverSkeleton(1)
+#[nlp, komo] = create_problem3_handoverSkeleton(10)
 
-#x = solve_grad(problem)
+#-- naive grad doesn't really work
+#solve_naiveGrad(nlp, alpha = 1e-2)
+#komo.view(True)
+#komo.view_play(True, .2)
 
+#-- solver (AugLag) implemented in rai
 sol = ry.NLP_Solver()
-sol.setProblem(nlp) #can't yet take python-created problem..
-sol.setOptions( sol.getOptions() .set_stopTolerance(1e-1) .set_stopGTolerance(1e-2) )
-print(sol.getOptions().dict())
-sol.solve()
+sol.setProblem(nlp)
+sol.setOptions( stopTolerance=1e-2 )
+print('[main] solver options:', sol.getOptions().dict())
+ret = sol.solve()
+print('[main]', ret)
 #print(sol.getTrace_costs(), sol.getTrace_x())
 
-print(nlp.report(2))
+#-- display results
+#print(nlp.report(2))
 komo.view(True)
 komo.view_play(True, .2)
